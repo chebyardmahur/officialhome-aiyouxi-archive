@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hth · 稳定入口与使用说明</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fdefd4 0%, #fbe4c2 40%, #f7d5a8 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1.5rem;
+      line-height: 1.6;
+      color: #2d2a1f;
+    }
+
+    .page-card {
+      max-width: 820px;
+      width: 100%;
+      background: rgba(255, 252, 246, 0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 48px 24px 48px 24px;
+      padding: 2.8rem 2.4rem;
+      box-shadow: 0 20px 40px -12px rgba(110, 70, 30, 0.25),
+                  0 8px 16px -6px rgba(80, 50, 20, 0.1);
+      transition: box-shadow 0.2s ease;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 1.2rem 0.8rem;
+      }
+      .page-card {
+        padding: 1.8rem 1.2rem;
+        border-radius: 32px 16px 32px 16px;
+      }
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #a5672e, #7f4e21);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .hero .subline {
+      font-size: 1.2rem;
+      color: #6b4f2c;
+      background: #f0e2ce;
+      display: inline-block;
+      padding: 0.3rem 1.4rem;
+      border-radius: 60px;
+      font-weight: 450;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(2px);
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-top: 2.2rem;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 3px solid #e6cfb3;
+      display: inline-block;
+      color: #4d3a21;
+    }
+
+    .grid-advantages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 1.6rem 0 2rem 0;
+    }
+
+    .advantage-item {
+      background: #fcf7ef;
+      border-radius: 28px 12px 28px 12px;
+      padding: 1.4rem 1.2rem;
+      box-shadow: 0 2px 6px rgba(140, 100, 55, 0.08);
+      transition: transform 0.15s;
+    }
+
+    .advantage-item:hover {
+      transform: translateY(-3px);
+      background: #fffaf2;
+    }
+
+    .advantage-item h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #7d5d37;
+      margin-bottom: 0.5rem;
+    }
+
+    .advantage-item p {
+      font-size: 0.95rem;
+      color: #3f3527;
+    }
+
+    .description-block {
+      background: #faf3e9;
+      border-radius: 24px;
+      padding: 1.4rem 1.8rem;
+      margin: 2rem 0 1.8rem 0;
+    }
+
+    .description-block p {
+      margin-bottom: 1rem;
+    }
+
+    .faq-mini {
+      margin-top: 2.2rem;
+      border-top: 1px solid #dcc6ae;
+      padding-top: 1.8rem;
+    }
+
+    .faq-mini details {
+      margin-bottom: 0.8rem;
+      border-radius: 40px;
+      background: #f7ede1;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+    }
+
+    .faq-mini summary {
+      font-weight: 500;
+      color: #5a4127;
+      padding: 0.3rem 0;
+    }
+
+    .faq-mini details p {
+      padding: 0.5rem 0.4rem 0.3rem 0;
+      font-size: 0.95rem;
+      color: #3d3224;
+    }
+
+    .link-area {
+      margin-top: 2.5rem;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem 1rem;
+    }
+
+    .link-item {
+      background: #f0e0cc;
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 450;
+      color: #4d3822;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.15s, box-shadow 0.15s;
+      display: inline-block;
+      border: 1px solid transparent;
+    }
+
+    .link-item:hover,
+    .link-item:focus-visible {
+      background: #e6d0b8;
+      box-shadow: 0 2px 8px rgba(120, 80, 40, 0.15);
+      border-color: #c6a98b;
+    }
+
+    .hl-link {
+      background: #b7874f;
+      color: white;
+      font-weight: 500;
+      border: none;
+      padding: 0.5rem 1.6rem;
+      box-shadow: 0 4px 8px rgba(150, 100, 40, 0.15);
+    }
+
+    .hl-link:hover {
+      background: #a06e3c;
+      color: #fff7eb;
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #7a6a57;
+      text-align: center;
+      border-top: 1px dashed #d9c5b0;
+      padding-top: 1.5rem;
+    }
+
+    .footer-note a {
+      color: #6b4d2b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .inline-link {
+      color: #8f6436;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid #dbbf9e;
+      transition: border-color 0.1s;
+    }
+
+    .inline-link:hover {
+      border-bottom-color: #8a5f30;
+    }
+
+    strong {
+      color: #5d4329;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-card">
+    <!-- hero -->
+    <div class="hero">
+      <h1>hth · 稳定入口</h1>
+      <div class="subline">说明与引导 · 清晰直白</div>
+    </div>
+
+    <!-- 优势区：卡片网格 -->
+    <div class="grid-advantages">
+      <div class="advantage-item">
+        <h3>⇄ 直达</h3>
+        <p>使用最新 <a href="https://sports2-hth.com" class="inline-link">hth</a> 入口，减少中间跳转，更快抵达目标页面。</p>
+      </div>
+      <div class="advantage-item">
+        <h3>⚙️ 结构明确</h3>
+        <p>页面分区经过整理，避免无效信息干扰，定位功能模块更直观。</p>
+      </div>
+      <div class="advantage-item">
+        <h3>📋 说明前置</h3>
+        <p>将常用说明与常见问题集中展示，降低初次使用的理解成本。</p>
+      </div>
+    </div>
+
+    <!-- 说明区：场景与特点 -->
+    <div class="description-block">
+      <h2 class="section-title" style="margin-top: 0; border-bottom: none; display: block;">从稳定入口到页面说明</h2>
+      <p>日常使用中，一个<strong>可靠的入口</strong>能节省大量时间。基于此，我们整理了当前指向 <a href="https://sports2-hth.com" class="inline-link">hth</a> 的直达方式，并围绕它梳理了页面结构、操作提示和常见问题摘要。无论你是在电脑端还是移动设备上，都可以通过本文快速了解布局与功能分布。</p>
+      <p>整个页面的设计以<strong>清晰、平实</strong>为原则，没有多余装饰。每个板块都经过内容筛选，重点突出“怎么找到、如何使用”两个核心问题。如果你之前对页面布局感到困惑，或者想确认哪个入口最稳定，下面的 FAQ 摘要和链接区可以作为起点。</p>
+    </div>
+
+    <!-- FAQ 摘要（折叠） -->
+    <div class="faq-mini">
+      <h2 class="section-title" style="margin-top: 0;">❓ 常见问题摘要</h2>
+      <details>
+        <summary>▸ 我该从哪里开始？</summary>
+        <p>可以直接使用上方卡片或底部链接中的 <a href="https://sports2-hth.com" class="inline-link">hth</a> 直达地址。建议将当前页面加入书签，作为日后访问的固定参考点。</p>
+      </details>
+      <details>
+        <summary>▸ 页面内容会频繁变化吗？</summary>
+        <p>本页属于说明型落地页，结构保持相对稳定。如入口地址有变动，我们会及时更新此页的链接与提示。</p>
+      </details>
+      <details>
+        <summary>▸ 移动端显示正常吗？</summary>
+        <p>已针对手机和平板做了响应式适配，卡片间距、字体大小均自动调整。如遇显示异常，可尝试刷新或旋转屏幕。</p>
+      </details>
+      <details>
+        <summary>▸ 链接打不开怎么办？</summary>
+        <p>请检查网络环境，或尝试使用其他浏览器。如果仍然无法访问，可以稍后再试，或通过其他渠道核对域名状态。</p>
+      </details>
+    </div>
+
+    <!-- 底部链接区 -->
+    <div class="link-area">
+      <a href="https://sports2-hth.com" class="link-item hl-link">hth</a>
+      <a href="https://sports2-hth.com" class="link-item" style="background: #e3d0ba;">hth</a>
+      <span class="link-item" style="background: transparent; box-shadow: none; border: 1px solid #d2b99b;">直达 · 稳定</span>
+    </div>
+
+    <!-- 底部说明与补充链接 -->
+    <div class="footer-note">
+      <p>本页为说明用途，内容定期复核。如需直接跳转，可使用上方 <a href="https://sports2-hth.com">hth</a> 链接，或通过浏览器收藏夹保存。</p>
+      <p style="margin-top: 0.3rem;">反馈与建议 · 保持页面简洁</p>
+    </div>
+  </div>
+</body>
+</html>
